@@ -7,15 +7,14 @@ let formInputs;
 
 function populateData() {
   familia = document.getElementById("name").value.toLowerCase();
-  whatsapp = parseInt(document.getElementById("whatsapp").value);
+  contacto = parseInt(document.getElementById("whatsapp").value);
   populate = document.getElementById("populate");
   populateBtn = document.getElementById("populateBtn");
-  invitadosRef = db.collection("invitados");
   formInputs = document.querySelector(".form-inputs");
-  console.log(typeof whatsapp, whatsapp);
+  invitadosRef = db.collection("invitados");
 
   invitadosRef
-    .where('whatsapp', '==', whatsapp)
+    .where('contacto', '==', contacto)
     .limit(1)
     .get()
     .then(snapshot => {
@@ -26,19 +25,18 @@ function populateData() {
             const thisDoc = doc.data();      
             const ID = doc.id;
             const thisFamilia = thisDoc.familia;
-            const thisWhatsapp = thisDoc.whatsapp;
-            const guestNum = thisDoc.invitadosOriginal;
-  
-            if (thisFamilia.toLowerCase() != familia) {
-              throw new Exception();
-            }
+            const thisContacto = thisDoc.contacto;
+            const guestNum = thisDoc.puestosReservados;
 
             formInputs.innerHTML = `
-              <div>Familia /Nombre: <span>${thisFamilia}</span></div>
-              <div>Whatsapp: <span>${thisWhatsapp}</span</div>
-              <label for="quantity">Numero de Invitados</label>
-              <input type="number" id="${ID}" class="numOfGuests" name="quantity" min="1" max="10" value="${guestNum}" required></input>
-              <button type="button" onclick="confirmGuest()" class="btn btn-light form-btn" name="submit">Estare ahi!</button>`;
+              <div>Familia /Nombre Completo: <br><span>${thisFamilia}</span></div>
+              <div>Numero de Contacto: <span>${thisContacto}</span</div>
+              <label for="quantity">Puestos Reservados</label>
+              <input type="number" id="${ID}" class="numOfGuests" name="quantity" min="1" max="${guestNum}" value="${guestNum}" required></input>
+              <label for="comentario">Comentario</label>
+              <input type="text" id="comentario-${ID}" class="comentario" name="comentario" maxlength="100">
+              <button type="button" onclick="confirmGuest()" class="btn btn-light form-btn" name="submit">Estare ahi!</button>
+              <button type="button" onclick="rejectGuest()" class="btn btn-light form-btn" id="rejectBtn">No podre asistir</button>`;
           })
         } else {
           throw new Exception();
@@ -63,6 +61,11 @@ function errorMsg() {
   document.getElementById("msg").innerHTML = "Lo siento, no encuentro su invitacion";
 }
 
+function sadMsg(){
+  document.getElementById("msg").className = "error";
+  document.getElementById("msg").innerHTML = "Es una lastima :(";
+}
+
 function removeMsg(){
   document.getElementById("msg").className = "";
   document.getElementById("msg").innerHTML = "";
@@ -71,6 +74,7 @@ function removeMsg(){
 function confirmGuest() {
   try {
     const guestNum = document.querySelector(".numOfGuests");
+    const comentario = document.querySelector(".comentario");
     const ID = guestNum.id;
     const num = parseInt(guestNum.value);
     console.log("successfully got", ID);
@@ -78,8 +82,10 @@ function confirmGuest() {
     const docRef = db.collection('invitados').doc(ID);
 
     const updateField = {};
-    updateField['confirmaron'] = true;   
-    updateField['invitados'] = num;
+    updateField['confirmaron'] = true;
+    updateField['rechazaron'] = false;
+    updateField['puestosConfirmados'] = num;
+    updateField['comentario'] = comentario.value;
 
     docRef.update(updateField)
       .then(() => {
@@ -87,6 +93,36 @@ function confirmGuest() {
         confirmedMsg();
       })
   } catch {
+    removeMsg();
+    setTimeout(errorMsg, 100);
+    console.log("error updating");
+  }
+}
+
+function rejectGuest() {
+  try {
+    const guestNum = document.querySelector(".numOfGuests");
+    const ID = guestNum.id;
+    const num = 0;
+    const comentario = document.querySelector(".comentario").value;
+
+    const docRef = db.collection('invitados').doc(ID);
+    console.log("successfully got", ID);
+
+
+    const updateField = {};
+    updateField['rechazaron'] = true;
+    updateField['confirmaron'] = false;   
+    updateField['puestosConfirmados'] = num;
+    updateField['comentario'] = comentario;
+
+    docRef.update(updateField)
+      .then(() => {
+        removeMsg();
+        sadMsg();
+      })
+  } catch (error) {
+    console.log(error);
     removeMsg();
     setTimeout(errorMsg, 100);
     console.log("error updating");

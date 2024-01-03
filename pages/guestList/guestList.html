@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- Firebase -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script> 
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"/>
+
+  <!-- Libraries/Packages -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./guestList.css">
+</head>
+<body>
+  <br>
+  <div id="mensaje"></div>
+  <br><br>
+  <div>
+    <p>Aqui pones la informacion del invitado a agregar</p>
+    <input type="text" id="addFamilia" placeholder="nombre" required>
+    <input type="number" id="addNumero" placeholder="numero" required>
+    <input type="number" id="addPuestos" placeholder="puestos reservados" min="1" required>
+    <button onclick="addGuest()">Agregar</button>
+  </div>
+  <br><br>
+  <div>
+    <p>Aqui actualizas la informacion de alguien que ya esta en la lista</p>
+    <label for="updateNumero">el numero actual del invitado:</label>
+    <input type="number" id="updateNumero" placeholder="numero actual" required>
+    <br>
+    <label for="new">Informacion nueva:</label>
+    <input type="text" id="newFamilia" placeholder="nombre a actualizar" required>
+    <input type="number" id="newNumero" placeholder="numero a actualizar" required>
+    <input type="number" id="newPuestos" placeholder="puestos reservados a actualizar" min="1" required>
+    <button onclick="updateGuest()">Actualizar</button>
+  </div>
+  <br><br>
+  <div id="guestList"></div>
+  <script src="/../../scripts/firebaseAPI_FYA.js"></script>
+  <script src="./guestList.js"></script>
+</body>
+</html>

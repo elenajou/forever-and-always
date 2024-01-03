@@ -29,7 +29,7 @@
 
   <!-- Stylesheet -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/public/css/styleChino.css" />
 </head>
 
 <body onload="">
@@ -38,35 +38,34 @@
     Launch demo modal
   </button>
   <div class="main-container hide">
-    <audio id="my_audio" src="/public/media/song.mp3" loop="loop"></audio>
     <div class="welcome">
-      <img id="invitacion-fondo" class="addFadein" src="/public/img/invitacion-fondo.png" alt="FelipeyAlicia">
-      <img id="logo-caption" class="hide" src="/public/img/logo-caption.png" alt="FelipeyAlicia">
-      <div id="mensaje"></div>
-      <img id="introduccion" class="hide" src="/public/img/introduccion.png" alt="FelipeyAlicia">
-      <img id="detalles" class="hide" src="/public/img/detalles.png" alt="FelipeyAlicia">
-      <img id="vestimenta" class="hide" src="/public/img/vestimenta.png" alt="FelipeyAlicia">
-      <img id="firma" class="hide" src="/public/img/firma.png" alt="FelipeyAlicia">
+      <img id="invitacion-fondo" class="addFadein" src="/public/imgchino/invitacion-fondo.png" alt="FelipeyAlicia">
+      <img id="logo-caption" class="hide" src="/public/imgchino/logo-caption.png" alt="FelipeyAlicia">
+      <img id="familias" class="hide" src="/public/imgchino/familias.png" alt="FelipeyAlicia">
+      <img id="introduccion" class="hide" src="/public/imgchino/introduccion.png" alt="FelipeyAlicia">
+      <img id="nombres" class="hide" src="/public/imgchino/nombres.png" alt="FelipeyAlicia">
+      <img id="detalles" class="hide" src="/public/imgchino/detalles.png" alt="FelipeyAlicia">
+      <img id="firma" class="hide" src="/public/imgchino/firma.png" alt="FelipeyAlicia">
       <img id="cover-photo" class="addFadeup slide" src="/public/img/RC1_6363.jpg" alt="FelipeyAlicia"
       data-aos="fade-up" data-aos-duration="1500">
     </div>
     <div class="rsvp" data-aos="fade-up" data-aos-duration="1500">
-      <h2>Nos encantaria verlos ahi!</h2>
-      <p>Confirmar antes de 10 de Enero, 2024</p>
+      <h2>我们很高兴在那里见到您!</h2>
+      <p>2024年1月10日前确认</p>
       <form class="form-container container" method="post" action="javascript:populateData();">
         <div class="brand-title">Forever & Always</div>
         <div class="form-inputs">
-          <label for="name">Familia o Nombre</label>
+          <label for="name">家庭或姓名</label>
           <input type="text" id="name" name="name" placeholder="Chen Zhang" required />
-          <label for="whatsapp">Whatsapp / Phone Number</label>
-          <input type="number" id="whatsapp" name="whatsapp" 
-          placeholder="62224444 or 6778889999" required min="60000000" max="9999999999"/>
-          <button type="submit" class="btn btn-light form-btn" id="populateBtn">Buscar</button>
+          <!-- <label for="whatsapp">Whatsapp / 电话号码</label> -->
+          <!-- <input type="number" id="whatsapp" name="whatsapp" 
+          placeholder="62224444 或者 6778889999" required min="60000000" max="9999999999"/> -->
+          <button type="submit" class="btn btn-light form-btn" id="populateBtn">寻找</button>
           <div id="populate"></div>
         </div>
         <div id="msg" class=""></div>
       </form>
-      <div>Visita nuestro <a href="https://withjoy.com/forever-and-always/">sitio web</a></div>
+      <div>访问我们的 <a href="https://withjoy.com/forever-and-always/">网站</a></div>
     </div>
   </div>
   
@@ -78,11 +77,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Te deseamos compartir un mensage...
+          我们想与您分享一条消息...
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="playMusic()">Abrir
-            carta</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="playMusic()">打开信封</button>
         </div>
       </div>
     </div>
@@ -92,37 +90,13 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>AOS.init();</script>
-  <script> // creates typing animation for intro statement
-    let f = 0;
-    let felipe = "Felipe Chen Zhang & Alicia Jou Luo"
-    let speed = 75;
-    let mensaje = document.getElementById("mensaje");
-    let br = document.createElement("br");
-  
-    function writeFelipe() {
-      if (f < felipe.length) {
-        mensaje.innerHTML += felipe.charAt(f);
-        f++;
-        if (f == 17 || f == 19) {
-          mensaje.appendChild(br);
-        }
-        setTimeout(typeWriter, speed);
-      }
-    }
-
-    function typeWriter() {
-      writeFelipe();
-      // writeEnter();
-      // writeAlicia();
-    }
-  </script>
   <!---------------------------------------------->
   <!------  JavaScript functions go here --------->
   <!---------------------------------------------->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="./scripts/firebaseAPI_FYA.js"></script>
-  <script src="./scripts/functions.js"></script>
-  <script src="./scripts/rsvp.js"></script>
+  <script src="./scripts/functionsChino.js"></script>
+  <script src="./scripts/rsvpChino.js"></script>
 </body>
 
 </html>
